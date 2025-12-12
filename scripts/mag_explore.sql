@@ -47,7 +47,7 @@ GROUP BY  m.item_name,  o.item_id
 ORDER BY number_of_orders DESC; 
  
 
- -- segement products into sales categories
+ -- segment products into sales categories
  WITH order_items AS(
  SELECT
 	 o.item_id,
@@ -61,7 +61,7 @@ WHERE item_id != 'NULL'
 GROUP BY  item_name,  item_id, m.price
 )
 ,
- product_segement AS (
+ product_segment AS (
 
  SELECT 
 	 item_id,
@@ -80,8 +80,8 @@ GROUP BY  item_name,  item_id, m.price
 		WHEN total_sales > 8000 THEN 'High Sales'
 		WHEN total_sales BETWEEN 4000 AND 8000 THEN 'Medium Sales'
 		ELSE 'Low Sales'
-END AS item_segement
-FROM product_segement
+END AS item_segment
+FROM product_segment
 ORDER BY total_sales DESC;
 
 
@@ -99,7 +99,7 @@ WHERE item_id != 'NULL'
 GROUP BY  m.price,o.order_date
 )
 ,
- monthly_segement AS (
+ monthly_segment AS (
  SELECT 
 	 DATEPART(Month, order_date) AS order_month,
 	 number_of_orders,
@@ -111,7 +111,7 @@ SELECT
 	order_month,  
 	SUM(number_of_orders) AS total_order,
 	SUM(total_sales) AS total_revenue
-FROM monthly_segement
+FROM monthly_segment
 GROUP BY order_month 
 ORDER BY total_revenue DESC;
 
